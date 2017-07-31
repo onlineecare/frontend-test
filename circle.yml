@@ -32,7 +32,7 @@ dependencies:
 
 deployment:
   dev:
-    branch: master
+    branch: sprint1
     commands:
       #- make ARGS="--rm=false" build-prod-image
       - docker build -t ${KUBERNETES_SERVICE_NAME} -f Dockerfile --rm=false .
