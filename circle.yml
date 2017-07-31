@@ -71,7 +71,7 @@ deployment:
       #- ~/.kube/kubectl get services
       - ~/.kube/kubectl version
       - echo "kubectl set image deployment/${KUBERNETES_SERVICE_NAME} ${KUBERNETES_SERVICE_NAME}=${DOCKER_REGISTRY_URL}/${KUBERNETES_SERVICE_NAME}:build-${CIRCLE_SHA1}"
-      - ~/.kube/kubectl set image deployment/frontend-test frontend-test=${DOCKER_REGISTRY_URL}/${KUBERNETES_SERVICE_NAME}:build-${CIRCLE_SHA1}
+      - ~/.kube/kubectl set image deployment/frontend-test frontend-test=336627915605.dkr.ecr.eu-central-1.amazonaws.com/frontend-test:latest
       #- TOTALPODS=`~/.kube/kubectl get pods | wc -l`
       #- RUNNINGPODS=`~/.kube/kubectl get pods | grep Running | wc -l`
       #- echo "Check #${COUNTER}: ${TOTALPODS} Total Pods — ${RUNNINGPODS} Running Pods"
