@@ -79,4 +79,4 @@ deployment:
   prod:
     branch: master
       commands:
-        - echo "Hola mundo"
+      - echo "Hola mundo"
