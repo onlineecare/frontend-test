@@ -26,9 +26,9 @@ machine:
 dependencies:
   cache_directories:
     - ~/.kube
-  #pre:
-    #- chmod 0777 ensure-kubernetes-is-installed.sh
-    #- ./ensure-kubernetes-is-installed.sh
+  pre:
+    - chmod 0777 ensure-kubernetes-is-installed.sh
+    - ./ensure-kubernetes-is-installed.sh
 
 deployment:
   dev:
