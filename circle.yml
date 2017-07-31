@@ -20,7 +20,7 @@ machine:
     - docker
 
   environment:
-    DOCKER_REGISTRY_URL: 336627915605.dkr.ecr.eu-central-1.amazonaws.com/clusterdev
+    DOCKER_REGISTRY_URL: 336627915605.dkr.ecr.eu-central-1.amazonaws.com
     KUBERNETES_SERVICE_NAME: frontend-test
 
 dependencies:
