@@ -21,7 +21,7 @@ machine:
 
   environment:
     DOCKER_REGISTRY_URL: 336627915605.dkr.ecr.eu-central-1.amazonaws.com/clusterdev
-    KUBERNETES_SERVICE_NAME: frontend
+    KUBERNETES_SERVICE_NAME: frontend-test
 
 dependencies:
   cache_directories:
