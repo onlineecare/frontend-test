@@ -23,6 +23,7 @@ machine:
     DOCKER_REGISTRY_URL: 336627915605.dkr.ecr.eu-central-1.amazonaws.com
     KUBERNETES_SERVICE_NAME: frontend-test
     KUBERNETES_CONFIG_STORE: cluster-lumiere-dev-config
+    COMMAND: ~/.kube/kubectl set image deployment/frontend-test frontend-test=336627915605.dkr.ecr.eu-central-1.amazonaws.com/frontend-test:latest
 
 dependencies:
   cache_directories:
@@ -38,7 +39,7 @@ deployment:
       #- make ARGS="--rm=false" build-prod-image
       - docker build -t ${KUBERNETES_SERVICE_NAME} -f Dockerfile --rm=false .
       - echo "aws configure set default.region eu-central-1"
-      - aws configure set default.region us-west-2
+      - aws configure set default.region eu-central-1
       # set default output to JSON
       - echo "aws configure set default.output json"
       - aws configure set default.output json
@@ -71,7 +72,7 @@ deployment:
       #- ~/.kube/kubectl get services
       - ~/.kube/kubectl version
       - echo "kubectl set image deployment/${KUBERNETES_SERVICE_NAME} ${KUBERNETES_SERVICE_NAME}=${DOCKER_REGISTRY_URL}/${KUBERNETES_SERVICE_NAME}:build-${CIRCLE_SHA1}"
-      - ~/.kube/kubectl set image deployment/frontend-test frontend-test=336627915605.dkr.ecr.eu-central-1.amazonaws.com/frontend-test:latest
+      - eval $COMMAND
       #- TOTALPODS=`~/.kube/kubectl get pods | wc -l`
       #- RUNNINGPODS=`~/.kube/kubectl get pods | grep Running | wc -l`
       #- echo "Check #${COUNTER}: ${TOTALPODS} Total Pods — ${RUNNINGPODS} Running Pods"
