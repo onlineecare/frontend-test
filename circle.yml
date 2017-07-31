@@ -34,4 +34,4 @@ deployment:
   dev:
     branch: sprint[1-6]
     commands:
-      - echo "Hola mundo"
+      - ./test.sh
