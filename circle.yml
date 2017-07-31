@@ -69,6 +69,7 @@ deployment:
       - aws s3 cp s3://$KUBERNETES_CONFIG_STORE/kubeconfig ~/.kube/config
       #- cp kubernetes.config ~/.kube/config
       #- ~/.kube/kubectl get services
+      - ~/.kube/kubectl version
       - echo "kubectl set image deployment/${KUBERNETES_SERVICE_NAME} ${KUBERNETES_SERVICE_NAME}=${DOCKER_REGISTRY_URL}/${KUBERNETES_SERVICE_NAME}:build-${CIRCLE_SHA1}"
       - ~/.kube/kubectl set image deployment/${KUBERNETES_SERVICE_NAME} ${KUBERNETES_SERVICE_NAME}=${DOCKER_REGISTRY_URL}/${KUBERNETES_SERVICE_NAME}:build-${CIRCLE_SHA1}
       #- TOTALPODS=`~/.kube/kubectl get pods | wc -l`
