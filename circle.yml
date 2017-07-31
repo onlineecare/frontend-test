@@ -23,10 +23,10 @@ machine:
     DOCKER_REGISTRY_URL: 606042811316.dkr.ecr.us-west-2.amazonaws.com
     KUBERNETES_SERVICE_NAME: lumiere-docker-images
 
-dependencies:
-  cache_directories:
+#dependencies:
+  #cache_directories:
     #- ~/.kube
-  pre:
+  #pre:
     #- chmod 0777 ensure-kubernetes-is-installed.sh
     #- ./ensure-kubernetes-is-installed.sh
 
