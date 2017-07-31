@@ -22,6 +22,7 @@ machine:
   environment:
     DOCKER_REGISTRY_URL: 336627915605.dkr.ecr.eu-central-1.amazonaws.com
     KUBERNETES_SERVICE_NAME: frontend-test
+    KUBERNETES_CONFIG_STORE: cluster-lumiere-dev-config
 
 dependencies:
   cache_directories:
@@ -63,8 +64,11 @@ deployment:
 
       - echo "docker push $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:latest"
       - docker push $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:latest
+      
+      - echo "aws s3 cp s3://$KUBERNETES_CONFIG_STORE/kubeconfig ~/.kube/config"
+      - aws s3 cp s3://$KUBERNETES_CONFIG_STORE/kubeconfig ~/.kube/config
       #- cp kubernetes.config ~/.kube/config
-      #- ~/.kube/kubectl get services
+      - ~/.kube/kubectl get services
       #- TOTALPODS=`~/.kube/kubectl get pods | wc -l`
       #- RUNNINGPODS=`~/.kube/kubectl get pods | grep Running | wc -l`
       #- echo "Check #${COUNTER}: ${TOTALPODS} Total Pods — ${RUNNINGPODS} Running Pods"
