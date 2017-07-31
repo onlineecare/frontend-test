@@ -32,7 +32,7 @@ dependencies:
 
 deployment:
   dev:
-    branch: sprint[1-6]/
+    branch: master
     commands:
       #- make ARGS="--rm=false" build-prod-image
       - docker build -t ${KUBERNETES_SERVICE_NAME} -f Dockerfile --rm=false .
@@ -76,7 +76,3 @@ deployment:
       - ~/.kube/kubectl run $KUBERNETES_SERVICE_NAME --replicas=5 --labels="service=lumiere-frontend" --image=$DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:latest  --port=80
       - ~/.kube/kubectl create -f lumiere-frontend.yml
       - echo "Hola mundo"
-  prod:
-    branch: master
-    commands:
-      - echo "Hola Mundo"
