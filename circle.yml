@@ -23,9 +23,9 @@ machine:
     DOCKER_REGISTRY_URL: 606042811316.dkr.ecr.us-west-2.amazonaws.com
     KUBERNETES_SERVICE_NAME: lumiere-docker-images
 
-#dependencies:
-  #cache_directories:
-    #- ~/.kube
+dependencies:
+  cache_directories:
+    - ~/.kube
   #pre:
     #- chmod 0777 ensure-kubernetes-is-installed.sh
     #- ./ensure-kubernetes-is-installed.sh
@@ -35,40 +35,3 @@ deployment:
     branch: sprint[1-6]
     commands:
       - echo "Hola mundo"
-      #- docker build -t ${KUBERNETES_SERVICE_NAME} -f Dockerfile --rm=false .
-      #- echo "aws configure set default.region eu-central-1"
-      #- aws configure set default.region us-west-2
-      # set default output to JSON
-      #- echo "aws configure set default.output json"
-      #- aws configure set default.output json
-
-      # log in to private docker registry on AWS ECR
-      #- echo "aws ecr get-login --region us-west-2"
-      #- eval $(aws ecr get-login --region us-west-2)
-      # push docker image to private docker registry on AWS ECR
-      # overwriting CIRCLE_SHA1 is unfortunately necessary because the automatic version bump also bumps the latest git sha
-      # which can lead to deployments trying to deploy an image that doesn't exist
-      # tag image with build number
-      #- echo "docker tag $KUBERNETES_SERVICE_NAME $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:build-$CIRCLE_SHA1"
-      #- docker tag $KUBERNETES_SERVICE_NAME $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:build-$CIRCLE_SHA1
-
-      # additionally, tag image with "latest"
-      #- echo "docker tag $KUBERNETES_SERVICE_NAME $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:latest"
-      #- docker tag $KUBERNETES_SERVICE_NAME $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:latest
-
-      # push image to private docker registry on AWS ECR
-      #- echo "docker push $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:build-$CIRCLE_SHA1"
-      #- docker push $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:build-$CIRCLE_SHA1
-
-      #- echo "docker push $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:latest"
-      #- docker push $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:latest
-      #- cp kubernetes.config ~/.kube/config
-      #- ~/.kube/kubectl get services
-      
-      # update kubernetes deployment with new image
-      # overwriting CIRCLE_SHA1 is unfortunately necessary because the automatic version bump also bumps the latest git sha
-      # which can lead to deployments trying to deploy an image that doesn't exist
-      #- export CIRCLE_SHA1=$(git rev-parse --verify master); ./deployment/deploy.sh dev
-      #- ~/.kube/kubectl run $KUBERNETES_SERVICE_NAME --replicas=5 --labels="service=lumiere-frontend" --image=$DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:latest  --port=80
-      #- ~/.kube/kubectl create -f lumiere-frontend.yml      
-
