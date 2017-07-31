@@ -78,5 +78,5 @@ deployment:
       - echo "Hola mundo"
   prod:
     branch: master
-      commands:
-      - echo "Hola mundo"
+    commands:
+      - echo "Hola Mundo"
