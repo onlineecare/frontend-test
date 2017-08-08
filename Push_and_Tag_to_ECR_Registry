@@ -1,3 +1,5 @@
+     #!/bin/bash
+     
      # log in to private docker registry on AWS ECR
       - echo "aws ecr get-login --region eu-central-1"
       - eval $(aws ecr get-login --region eu-central-1)
