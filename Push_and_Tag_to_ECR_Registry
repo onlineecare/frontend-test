@@ -1,0 +1,21 @@
+     # log in to private docker registry on AWS ECR
+      - echo "aws ecr get-login --region eu-central-1"
+      - eval $(aws ecr get-login --region eu-central-1)
+      # push docker image to private docker registry on AWS ECR
+      # overwriting CIRCLE_SHA1 is unfortunately necessary because the automatic version bump also bumps the latest git sha
+      # which can lead to deployments trying to deploy an image that doesn't exist
+      #- export CIRCLE_SHA1=$(git rev-parse --verify master); ./deployment/push-docker-image-to-aws-ecr.sh
+      # tag image with build number
+      - echo "docker tag $KUBERNETES_SERVICE_NAME $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:build-$CIRCLE_SHA1"
+      - docker tag $KUBERNETES_SERVICE_NAME $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:build-$CIRCLE_SHA1
+
+      # additionally, tag image with "latest"
+      - echo "docker tag $KUBERNETES_SERVICE_NAME $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:latest"
+      - docker tag $KUBERNETES_SERVICE_NAME $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:latest
+
+      # push image to private docker registry on AWS ECR
+      - echo "docker push $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:build-$CIRCLE_SHA1"
+      - docker push $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:build-$CIRCLE_SHA1
+
+      - echo "docker push $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:latest"
+- docker push $DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:latest
