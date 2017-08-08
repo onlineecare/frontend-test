@@ -1,0 +1,19 @@
+- echo "aws s3 cp s3://$KUBERNETES_CONFIG_STORE/kubeconfig ~/.kube/config"
+      - aws s3 cp s3://$KUBERNETES_CONFIG_STORE/kubeconfig ~/.kube/config
+      #- cp kubernetes.config ~/.kube/config
+      #- ~/.kube/kubectl get services
+      - ~/.kube/kubectl version
+      - echo "kubectl set image deployment/${KUBERNETES_SERVICE_NAME} ${KUBERNETES_SERVICE_NAME}=${DOCKER_REGISTRY_URL}/${KUBERNETES_SERVICE_NAME}:build-${CIRCLE_SHA1}"
+      - chmod 0777 updatePodsImage.sh
+      - ./updatePodsImage.sh
+      #- TOTALPODS=`~/.kube/kubectl get pods | wc -l`
+      #- RUNNINGPODS=`~/.kube/kubectl get pods | grep Running | wc -l`
+      #- echo "Check #${COUNTER}: ${TOTALPODS} Total Pods — ${RUNNINGPODS} Running Pods"
+      
+      # update kubernetes deployment with new image
+      # overwriting CIRCLE_SHA1 is unfortunately necessary because the automatic version bump also bumps the latest git sha
+      # which can lead to deployments trying to deploy an image that doesn't exist
+      #- export CIRCLE_SHA1=$(git rev-parse --verify master); ./deployment/deploy.sh dev
+      #- ~/.kube/kubectl run $KUBERNETES_SERVICE_NAME --replicas=5 --labels="service=lumiere-frontend" --image=$DOCKER_REGISTRY_URL/$KUBERNETES_SERVICE_NAME:latest  --port=80
+      #- ~/.kube/kubectl create -f lumiere-frontend.yml
+#- echo "Hola mundo"
