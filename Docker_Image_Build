@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #- make ARGS="--rm=false" build-prod-image
       - docker build -t ${KUBERNETES_SERVICE_NAME} -f Dockerfile --rm=false .
       - echo "aws configure set default.region eu-central-1"
