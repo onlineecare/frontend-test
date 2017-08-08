@@ -1,3 +1,5 @@
+#!/bin/bash
+
 - echo "aws s3 cp s3://$KUBERNETES_CONFIG_STORE/kubeconfig ~/.kube/config"
       - aws s3 cp s3://$KUBERNETES_CONFIG_STORE/kubeconfig ~/.kube/config
       #- cp kubernetes.config ~/.kube/config
